@@ -25,6 +25,9 @@ public class Alert {
     @Column(name = "status")
     private String status; // UNREAD, READ, RESOLVED
 
+    @Column(name = "severity")
+    private String severity;
+
     @CreationTimestamp
     @Column(name = "created_at")
     private LocalDateTime createdAt;

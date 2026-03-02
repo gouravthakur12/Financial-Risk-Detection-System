@@ -1,5 +1,7 @@
 package com.FinacialRDS.Financialrisk.controller;
-
+import jakarta.validation.Valid;
+import com.FinacialRDS.Financialrisk.dto.UserRequestDTO;
+import com.FinacialRDS.Financialrisk.dto.UserResponseDTO;
 import com.FinacialRDS.Financialrisk.entity.User;
 import com.FinacialRDS.Financialrisk.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -15,12 +17,20 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/add")
-    public ResponseEntity<User> addUser(@RequestBody User user) {
-        return ResponseEntity.ok(userService.saveUser(user));
+    public ResponseEntity<UserResponseDTO> addUser(
+        @Valid @RequestBody UserRequestDTO requestDTO) {
+      UserResponseDTO response = userService.createUser(requestDTO);
+    return ResponseEntity.ok(response);
     }
 
     @GetMapping("/all")
     public ResponseEntity<List<User>> getUsers() {
         return ResponseEntity.ok(userService.getAllUsers());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<User> getUserById(@PathVariable Long id) {
+        User user = userService.getUserById(id);
+        return ResponseEntity.ok(user);
     }
 }

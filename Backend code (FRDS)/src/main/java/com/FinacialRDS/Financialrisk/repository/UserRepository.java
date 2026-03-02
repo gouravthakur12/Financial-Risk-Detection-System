@@ -7,4 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
     // Spring gives you save(), findById(), and delete() automatically!
+
+    java.util.Optional<User> findByEmail(String email);
 }
